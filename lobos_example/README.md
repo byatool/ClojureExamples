@@ -1,13 +1,13 @@
 # lobo_example
 
-A Clojure library designed to ... well, that part is up to you.
+This is an example project using the Lobos migration system thing... yeah.  Basically allows a step by step creation/deletion/upda...tion of database tables.  This uses PostgreSql.
 
 ## Usage
 
-FIXME
+Will link the pdf/blog post soon.
 
 ## License
 
-Copyright © 2012 FIXME
+Copyright © 2012 www.byatool.com
 
 Distributed under the Eclipse Public License, the same as Clojure.
