@@ -7,7 +7,7 @@
    ;This is the default user on installation
    :user "postgres"
    ;This is the password for the above user... duh
-   :password "chapsman1"
+   :password ""
    ;This is the connection to the database
    ;	This example is using a local instance
    ;	LobosTest is the name of the new database I created for this example

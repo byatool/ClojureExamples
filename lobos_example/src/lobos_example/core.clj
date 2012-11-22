@@ -1,4 +1,4 @@
-(ns lobo-example.core)
+(ns lobos-example.core)
 
 (defn foo
   "I don't do a whole lot."

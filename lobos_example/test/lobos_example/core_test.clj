@@ -1,6 +1,6 @@
-(ns lobo-example.core-test
+(ns lobos-example.core-test
   (:use clojure.test
-        lobo-example.core))
+        lobos-example.core))
 
 (deftest a-test
   (testing "FIXME, I fail."
