@@ -1,6 +1,6 @@
-# lobo_example
+# sqlkorma_example
 
-This is an example project using the Lobos migration system thing... yeah.  Basically allows a step by step creation/deletion/upda...tion of database tables.  This uses PostgreSql.
+This is an example of a working project with SqlKorma.
 
 ## Usage
 
