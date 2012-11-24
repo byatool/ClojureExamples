@@ -1,4 +1,4 @@
-# sqlkorma_example
+# korma_example
 
 This is an example of a working project with SqlKorma.
 
