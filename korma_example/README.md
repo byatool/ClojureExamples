@@ -4,8 +4,8 @@ This is an example of a working project with SqlKorma.
 
 ## Usage
 
-Will link the pdf/blog post soon.
-
+Walk through: http://byatool.com/clojure/setting-up-sqlkorma-with-postgresql-on-windows-7/
+                    
 ## License
 
 Copyright © 2012 www.byatool.com
