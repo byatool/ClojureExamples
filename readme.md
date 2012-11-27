@@ -11,7 +11,10 @@
                               foundation created in the lobos_example.
                     Walk through: http://byatool.com/clojure/setting-up-sqlkorma-with-postgresql-on-windows-7/
                     
+          noir_example:
+                    This is an example of using noir along with clojure script.
 
           test_example:
                     This is a very simple project use to showcase the default unit testing in Clojure.
                     Walk through: http://byatool.com/clojure/clojure-default-unit-test-setup/
+
