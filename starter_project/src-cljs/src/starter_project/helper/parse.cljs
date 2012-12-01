@@ -6,6 +6,7 @@
 ;Request to map method
 
 (defn ^:export to-map [input]
+	"This is used to convert a request string to a clojure map"
 	(if (empty? input)
 		{}
 		(start-the-split input)))
