@@ -2,6 +2,7 @@
     :description "FIXME: write this!"		
     :dependencies [ [org.clojure/clojure "1.4.0"]
                     [noir "1.3.0-beta3"] 
+                    [gaka "0.3.0"]
                     [lobos "1.0.0-SNAPSHOT"]
                     [postgresql "9.1-901.jdbc4"]
                     [korma "0.3.0-beta9"]]
@@ -19,14 +20,14 @@
               { :output-to "resources/public/js/application.js"
                 :optimizations :simple
                 :pretty-print true}}
-        ;   :test
-        ;   { 
-        ;     :source-path "src-cljs/src"       
-        ;     :compiler 
-        ;       { 
-        ;       	:output-to  "resources/test/js/application.js"
-        ;         :optimizations :simple
-        ;         :pretty-print true }}
+          :test
+          { 
+            :source-path "src-cljs/src"       
+            :compiler 
+              { 
+              	:output-to  "resources/test/js/application.js"
+                :optimizations :simple
+                :pretty-print true }}
         }
   	}	
 		:main starter-project.server
