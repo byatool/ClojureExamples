@@ -1,11 +1,11 @@
 (ns test.starter-project.helper.send-post
 	(:require	
-   	[goog.dom 															:as dom] 
-		[src.starter-project.helper.send-post 				:as send]
-		[src.starter-project.helper.web-template 		:as template]
-		[src.starter-project.helper.conversion				:as conversion]
-		[test.starter-project.tools.jasmine 					:as test]
-		[test.starter-project.tools.jasmine.methods 	:as is]))
+   	[goog.dom 										:as dom] 
+		[src.starter-project.helper.send-post 		:as send]
+		[src.starter-project.helper.web-template 	:as template]
+		[src.starter-project.helper.conversion		:as conversion]
+		[test.starter-project.tools.jasmine 		:as test]
+		[test.starter-project.tools.jasmine.methods :as is]))
 
 ;"Constants"
 
@@ -52,9 +52,9 @@
 					(remove-if-exists actionForm (.-body js/document) goog.dom))))
 		(js/it "can handle there being no action."
 			(fn []
-        (test/that (send/get-form-action noActionFormName (add-to-body actionLessForm goog.dom)) is/equal-to "")))
-	  (js/it "can handle find the action."
+        		(test/that (send/get-form-action noActionFormName (add-to-body actionLessForm goog.dom)) is/equal-to "")))
+	  	(js/it "can handle finding the action."
 				(fn []
-	        (test/that (send/get-form-action actionFormName (add-to-body actionForm goog.dom)) is/equal-to "file:///C:/Development/Clojure/first/src-cljs/test/view/something")))
+	        		(test/that (send/get-form-action actionFormName (add-to-body actionForm goog.dom)) is/equal-to "file:///C:/Users/Leah/Documents/GitHub/ClojureExamples/starter_project/src-cljs/test/starter_project/view/something")))
 	)
 )

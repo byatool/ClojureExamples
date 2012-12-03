@@ -22,10 +22,10 @@
                 :pretty-print true}}
           :test
           { 
-            :source-path "src-cljs/src"       
+            :source-path "src-cljs/"       
             :compiler 
               { 
-              	:output-to  "resources/test/js/application.js"
+              	:output-to  "src-cljs/test/starter_project/view/js/main-test.js"
                 :optimizations :simple
                 :pretty-print true }}
         }
