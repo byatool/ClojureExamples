@@ -8,5 +8,5 @@
    [clj-json "0.5.3"]
    [hiccup "1.0.0"]
    [lib-noir "0.5.0"]]
-  :plugins [[lein-ring "0.7.1"]]
+  :Plugins [[Lein-ring "0.7.1"]]
   :ring {:handler compojure.example.routes/app})
