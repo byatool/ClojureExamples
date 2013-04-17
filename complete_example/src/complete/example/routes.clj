@@ -24,9 +24,9 @@
   ;;curl -X GET -H "Content-Type: application/json" http://localhost:3000
   (GET "/" []
        (index-page))
-
-  ;; (GET "/login/" []
-  ;;      (login-page))
+  
+  (GET "/login" []
+       (login-page))
   
   ;;curl -X POST -H "Content-Type: application/json" "http://localhost:3000/login/sean?password=hihi"
   (POST "/login/:username" [username password]

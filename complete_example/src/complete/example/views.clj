@@ -11,5 +11,14 @@
 
 
 (defn index-page []
-  (master-page [:h1 "hadofhado"]))
+  (master-page [:h1 "Welcome"]))
+
+(defn login-page []
+  (master-page
+   [:div
+    [:input {:type "text" :id "username"}]
+    [:input {:type "text" :id "password"}]]))
+    
+;;(-> index-page [:h1 "login"])
+
 
