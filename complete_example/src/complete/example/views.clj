@@ -1,10 +1,15 @@
-(ns compojure.example.views
+(ns complete.example.views
   (:use [hiccup core page]))
 
-(defn index-page []
+(defn master-page [to-inject]
   (html5
    [:head
-    [:title "Hello World"]
-    (include-css "/css/style.css")]
+    [:title "overall title"
+     (include-css "/css/final.css")]]
    [:body
-    [:h1 "Hello World"]]))
+    to-inject]))
+
+
+(defn index-page []
+  (master-page [:h1 "hadofhado"]))
+

@@ -1,9 +1,11 @@
-(ns compojure.example.routes
+(ns complete.example.routes
   (:use compojure.core
         ring.adapter.jetty
         ring.middleware.json-params
         [hiccup.middleware :only (wrap-base-url)]
-        compojure.example.views)
+        complete.example.views
+        [complete.example.communicator :only (login-user)]
+        [noir.util.crypt :only (md5)])
   (:require [clj-json.core :as json]
             [compojure.route :as route]
             [compojure.handler :as handler]
@@ -22,12 +24,16 @@
   ;;curl -X GET -H "Content-Type: application/json" http://localhost:3000
   (GET "/" []
        (index-page))
+
+  ;; (GET "/login/" []
+  ;;      (login-page))
   
-  ;;curl -X POST -H "Content-Type: application/json" "http://localhost:3000/dothings/12"
-  (POST "/dothings/:username" [username password]
-        (do
-          (cookies/put! :user-id "hi")
-          (json-response {"hello" (cookies/get :username)})))
+  ;;curl -X POST -H "Content-Type: application/json" "http://localhost:3000/login/sean?password=hihi"
+  (POST "/login/:username" [username password]
+        (let [user-id (login-user username password)]
+          (do
+            (cookies/put! :user-id (md5 (Integer/toString user-id) "test"))
+            (json-response {"your hashed id is:" (cookies/get :user-id)}))))
   
   (route/resources "/")
   (route/not-found "Page not found"))
