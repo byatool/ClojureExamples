@@ -2,7 +2,8 @@
 
           compojure-exmaple:
                     This is an example of how to capture, and return json requests. Originally used 
-                    https://github.com/weavejester/compojure-example.
+                    https://github.com/weavejester/compojure-example.  I added some examples of posts,
+                    and the use of https://github.com/noir-clojure/lib-noir for cookies.
                     
           lobos_example:
                     Lobos (https://github.com/budu/lobos) is a database migration tool for Clojure.  
