@@ -34,7 +34,7 @@
           (do
             (cookies/put! :user-id (md5 (Integer/toString user-id) "test"))
             (json-response {"your hashed id is:" (cookies/get :user-id)}))))
-  
+   
   (route/resources "/")
   (route/not-found "Page not found"))
 

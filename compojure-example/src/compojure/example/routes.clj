@@ -30,13 +30,18 @@
   ;;curl -X POST -H "Content-Type: application/json" "http://localhost:3000/something/1?id=2&name=3"
   (POST "/something/:test" [test id name]
         (json-response {"test" test  "hello" id "name" name}))
-  
+   
   ;;curl -X POST -H "Content-Type: application/json" "http://localhost:3000/dothings/12"
   (POST "/dothings/:id" [id]
         (do
           (cookies/put! :user-id "hi")
           (json-response {"hello" (cookies/get :user-id)})))
-   
+  
+   ;;curl -X POST -H "Content-Type: application/json" "http://localhost:3000/info/herp/derp"
+  (POST "/info/:username/:userid" [username userid]
+        (json-response {"yaya: " username }))
+  
+  
   (route/resources "/")
   (route/not-found "Page not found"))
 
