@@ -4,7 +4,7 @@
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [
-  	[org.clojure/clojure "1.4.0"]
-	[lobos "1.0.0-SNAPSHOT"]
-	[postgresql "9.1-901.jdbc4"]
-	[korma "0.3.0-beta7"]])
+                 [org.clojure/clojure "1.4.0"]
+                 [lobos "1.0.0-SNAPSHOT"]
+                 [postgresql "9.1-901.jdbc4"]
+                 [korma "0.3.0-RC5"]])
