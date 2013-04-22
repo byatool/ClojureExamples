@@ -3,14 +3,19 @@
    clojure.test
    [clojure.string :only (join split)]
    complete.macro.unit-test
-   complete.example.communicator))
+   complete.example.communicator.user-communicator))
 
 ;; Fields
 (string! test-username)
 (string! test-password)
+(string! hashed-password)
 
 
-;; Support Methods
+
+;; Possibly should be moved
+
+(defn assert-that [left match right]
+  (is (match left right)))
 
 (defmacro was-called? []
   `(def  was-called (atom false)))
@@ -19,15 +24,45 @@
   `(swap! was-called (fn [~(gensym)] true)))
 
 
+;; Support Methods
+
+
+(def find-user-by-credentials-mock (fn [a b] 1))
+
+(def hash-password-mock (fn [a] hashed-password))
+
+(defn call-the-method []
+  (login-user test-username test-password hash-password-mock find-user-by-credentials-mock))
+
+
 ;; Test Methods
+
 (it-should "hash the password"
            (was-called?)
-           (let [hash-password
-                 #(if (= % test-password)
-                    (was-called!)
-                    nil)]
-             (login-user test-username test-password hash-password))
-             (is (= @was-called true)))
+           (def hash-password-mock
+             #(if (= % test-password)
+                (was-called!)
+                nil))
+           (call-the-method)
+           (assert-that @was-called = true))
+
+
+(it-should "attempt to login"
+           (was-called?)
+           (def find-user-by-credentials-mock
+             #(if (and (= %1 test-username ) (= %2 hashed-password))
+                (was-called!)
+                nil))
+             (call-the-method)
+             (assert-that @was-called = true))
+
+;; (it-should "return errors if there are any" nil)
+
+;; (it-should "set the cookie if the are no errors" nil)
+
+;; (it-should "contruct the redirect url if there are no errors")
+
+
 
 
 ;; (deftest it-should-attempt-to-login-using-the-hashed-password
