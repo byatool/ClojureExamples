@@ -1,28 +1,34 @@
 (ns complete.example.when-logging-in-a-user
-  (:use clojure.test
-        [clojure.string :only (join split)]
-        complete.example.routes))
+  (:use
+   clojure.test
+   [clojure.string :only (join split)]
+   complete.macro.unit-test
+   complete.example.communicator))
+
+;; Fields
+(string! test-username)
+(string! test-password)
 
 
-;;attempt to login using username and password
-;;  if failure, return errors
-;;  if success s
+;; Support Methods
+
+(defmacro was-called? []
+  `(def  was-called (atom false)))
+
+(defmacro was-called! []
+  `(swap! was-called (fn [~(gensym)] true)))
 
 
-(defn create-symbol-from-string [text]
-  (symbol (join "-" (split text #" "))))
+;; Test Methods
+(it-should "hash the password"
+           (was-called?)
+           (let [hash-password
+                 #(if (= % test-password)
+                    (was-called!)
+                    nil)]
+             (login-user test-username test-password hash-password))
+             (is (= @was-called true)))
 
-(defmacro it-should [description body]
-  `(deftest ~(create-symbol-from-string description)
-     (testing ~(apply str "it should " description)
-       ~body)))
-
-(it-should "be equal to 1"
-           (is (= 1 2)))
-
-
-;; (deftest it-should4-hash-the-password
-;;   (testing "" ()))
 
 ;; (deftest it-should-attempt-to-login-using-the-hashed-password
 ;;   (testing "adsfda"
