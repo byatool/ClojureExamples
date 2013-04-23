@@ -9,6 +9,7 @@
   ([username password ?hash-password ?find-user-by-credentials]
      (do
        (let [hashed-password (?hash-password password)]
-         (?find-user-by-credentials username hashed-password)))))
-         
-         
+         (let [result (?find-user-by-credentials username hashed-password)]
+           result)))))
+
+
