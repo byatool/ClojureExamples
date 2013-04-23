@@ -59,10 +59,10 @@
            (binding [find-user-by-credentials-mock
                      (fn [username password]
                        {:messages [""]})]
-              (is (= 1 (count (:messages (call-the-method)))))))
+             (is (= 1 (count (:messages (call-the-method)))))))
 
-(it-should-attempt "set the cookie if the are no errors"
-                   set-cookie-mock
+;; (it-should-attempt "set the cookie if the are no errors"
+;;                    set-cookie-mock
                    
            
 ;;(it-should "set the url if 
