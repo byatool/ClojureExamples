@@ -1,13 +1,8 @@
 (ns complete.example.communicator.user-communicator.when-logging-in-a-user
   (:use
    clojure.test
-   [clojure.string :only (join split)]
    complete.macro.unit-test
-   complete.example.communicator.user-communicator)
-  (:require
-   complete.model.message)
-  (:import
-   [complete.model.message MessageItem MessageResult]))
+   complete.example.communicator.user-communicator))
 
 
 ;; Fields
