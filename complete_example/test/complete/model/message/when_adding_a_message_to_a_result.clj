@@ -7,6 +7,7 @@
 (string! new-message)
 (def ^:dynamic error-message (create-a-message-item new-message true))
 
+
 (def result (create-a-result))
 
 (defn call-the-method []
@@ -25,3 +26,7 @@
 (it-should "retain the success flag if a non error is added"
            (binding [error-message (create-a-message-item new-message false)]
              (is ((call-the-method) :Success))))
+
+(it-should "set the item to nil on error"
+           (binding [error-message (create-a-message-item new-message false)]
+             (is (nil? ((call-the-method) :Item)))))
