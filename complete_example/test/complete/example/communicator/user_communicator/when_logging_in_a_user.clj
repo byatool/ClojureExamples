@@ -14,31 +14,34 @@
 
 ;; Support Methods
 
+(def user-id -1)
+
+(defn swap-filler [input] true)
 
 (def ^:dynamic find-user-by-credentials-mock
   (fn [a b]
-    {:Messages [] :Success true :RedirectUrl "" :Item 1}))
+    {:Messages [] :Success true :RedirectUrl "" :Item user-id}))
 
-(def ^:dynamic hash-password-mock
+(def ^:dynamic hash-text-mock
   (fn [a]
     hashed-password))
 
-(def ^:dynamic set-cookie-mock
-  (fn [id]
-    login-result))
+(def ^:dynamic handle-cookie-mock
+  (fn [user-id]
+    ()))
 
 
 (defn call-the-method []
-  (login-user test-username test-password hash-password-mock find-user-by-credentials-mock))
+  (login-user test-username test-password hash-text-mock find-user-by-credentials-mock handle-cookie-mock))
 
 
 ;; Test Methods
 
 ;;method-name 
 (it-should-attempt "to hash the password"
-                   hash-password-mock
+                   hash-text-mock
                    #(if (= % test-password)
-                      (swap! was-called (fn [useless] true))
+                      (swap! was-called swap-filler)
                       nil))
 
 
@@ -47,7 +50,7 @@
                    #(if (and
                          (= %1 test-username)
                          (= %2 hashed-password))
-                      (swap! was-called (fn [useless] true))
+                      (swap! was-called swap-filler)
                       nil))
 
 (it-should "return any errors"
@@ -56,14 +59,21 @@
                        {:messages [""]})]
              (is (= 1 (count (:messages (call-the-method)))))))
 
+
+(it-should-attempt "to not set the cookie if there are errors"
+                   handle-cookie-mock
+                   #((swap! was-called swap-filler))
+                   false)
+
+
 ;; (it-should-attempt "set the cookie if the are no errors"
-;;                    set-cookie-mock
-                   
-           
+;;                    handle-cookie-mock
+
+
 ;;(it-should "set the url if 
 ;; (it-should "hash the password"
 ;;            (def was-called false)
-;;            (binding [hash-password-mock
+;;            (binding [hash-text
 ;;                      #(if (= % test-password)
 ;;                         (def was-called true)
 ;;                         nil)]
