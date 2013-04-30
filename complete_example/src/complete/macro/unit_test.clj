@@ -39,7 +39,7 @@
 (defmacro it-should-attempt [& rest]
   (let [[description method-name check called] rest]
     `(deftest ~(create-symbol-from-string description)
-       (testing ~(apply str "it should " description)
+       (testing ~(apply str "it should attempt " description)
          (do
            (def  ~(symbol "was-called") (atom false))
            (binding [~(symbol (str method-name))
@@ -47,15 +47,46 @@
              (~(symbol "call-the-method")))
            (is (= @~(symbol "was-called") ~(nil? called))))))))
 
+
+(defmacro it-should-call [& rest]
+  (let [[description method-name preceding-method called] rest]
+    `(deftest ~(create-symbol-from-string description)
+       (testing ~(apply str "it should call " description)
+         (do
+           (def  ~(symbol "was-called") (atom false))
+           (binding [~(symbol (str method-name))
+                     #(if (= % (~(symbol (str preceding-method)) nil))
+                        (swap! ~(symbol "was-called") (fn [~(symbol "afdsdfsfds")] true))
+                        nil)]
+             (~(symbol "call-the-method")))
+           (is (= @~(symbol "was-called") ~(nil? called))))))))
+
+
+;;  (mock-flow-method login-user)
+;;  (def ^:dynamic login-user [dsafdsaf]
+;;    "login-user")
+(defmacro mock-chain-method [name]
+  "Used to create mock chain method.  Chain methods are simple in that they take
+  in a value, and return a value.  The method name is used to create a return that
+  is unique to the method itself, but not for each call."
+  `(def ^:dynamic ~name
+     (fn [~(gensym)]
+       ~(str name))))
+
+
+
 (defmacro it-was-called! []
   `(swap! ~(symbol "was-called") (fn [~(symbol "a")] true)))
 
 
-;; (string! username) == (def username (crypto.random/base64 10))
+;; (string! username)
+;; (def username (crypto.random/base64 10))
 (defmacro string! [name]
   "This will declare a var, and set it to a random string."
   `(def ~name (crypto.random/base64 10)))
 
+;; (number! user-id
+;; (def user-id (rand-int 10))
 (defmacro number! [name]
   `(def ~name  (rand-int 10)))
 

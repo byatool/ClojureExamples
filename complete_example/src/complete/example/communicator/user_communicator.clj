@@ -26,14 +26,17 @@
   nil)
 (defn hash-the-password [result]
   nil)
+(defn login-the-user [result]
+  nil)
 
 (defn login-a-user
   ([username password]
-     (username password create-login-information validate-login hash-the-password))
-  ([username password ?create-login-information ?validate-login ?hash-the-password]
+     (username password create-login-information validate-login hash-the-password login-the-user))
+  ([username password ?create-login-information ?validate-login ?hash-the-password ?login-the-user]
      (-> (?create-login-information username password)
          (?validate-login)
-         (?hash-the-password))))
+         (?hash-the-password)
+         (?login-the-user))))
 
 
 ;;  (defn login [username password ?validate-login ?hash-password ?login-user]

@@ -11,17 +11,21 @@
 
 (def ^:dynamic create-login-information-mock
   (fn [a b]
-    (create-a-result)))
+    "create-login-information-mock"))
 
 
 (def ^:dynamic hash-the-password-mock
   (fn [a]
-    (create-a-result)))
+    "hash-the-password-mock"))
+
+(def ^:dynamic login-the-user-mock
+  (fn [a]
+    "login-the-user-mock"))
 
 
 (def ^:dynamic validate-login-mock
   (fn [a]
-    (create-a-result)))
+    "validate-login-mock"))
 
 
 (defn swap-filler [input]
@@ -34,7 +38,8 @@
    test-password
    create-login-information-mock
    validate-login-mock
-   hash-the-password-mock))
+   hash-the-password-mock
+   login-the-user-mock))
 
 (it-should-attempt "to assemble the need information"
                    create-login-information-mock
@@ -50,9 +55,11 @@
                       (it-was-called!)
                       nil))
 
-(it-should-attempt "to hash the password"
-                   hash-the-password-mock
-                   #(if (= %1 (validate-login-mock nil))
-                      (it-was-called!)
-                      nil))
+(it-should-call "to hash the password"
+                hash-the-password-mock
+                validate-login-mock)
+
+(it-should-call "to login the user"
+                login-the-user-mock
+                hash-the-password-mock)
 
