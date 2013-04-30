@@ -2,7 +2,8 @@
   (:use
    clojure.test
    complete.macro.unit-test
-   complete.example.communicator.user-communicator))
+   complete.example.communicator.user-communicator
+   complete.model.message))
 
 
 ;; Fields
@@ -11,28 +12,43 @@
 (string! test-password)
 (string! hashed-password)
 (string! login-result)
+(number! test-user-id)
+
+(def ^:dynamic messageless-result (set-result-value (create-a-result) test-user-id))
+(def ^:dynamic message-result (add-message (create-a-result) (create-a-message-item "" true)))
 
 ;; Support Methods
 
-(def user-id -1)
+(defn ^:dynamic contains-any-messages-mock [result]
+  false)
 
-(defn swap-filler [input] true)
+
+(defn ^:dynamic login-with-an-error [username password]
+  message-result)
+
 
 (def ^:dynamic find-user-by-credentials-mock
   (fn [a b]
-    {:Messages [] :Success true :RedirectUrl "" :Item user-id}))
+    messageless-result))
 
-(def ^:dynamic hash-text-mock
-  (fn [a]
-    hashed-password))
 
 (def ^:dynamic handle-cookie-mock
   (fn [user-id]
     ()))
 
 
+(def ^:dynamic hash-text-mock
+  (fn [a]
+    hashed-password))
+
+
+(defn swap-filler [input]
+  true)
+
+;; Generic Call
+
 (defn call-the-method []
-  (login-user test-username test-password hash-text-mock find-user-by-credentials-mock handle-cookie-mock))
+  (login-user test-username test-password hash-text-mock find-user-by-credentials-mock contains-any-messages-mock handle-cookie-mock))
 
 
 ;; Test Methods
@@ -53,68 +69,24 @@
                       (swap! was-called swap-filler)
                       nil))
 
+
 (it-should "return any errors"
-           (binding [find-user-by-credentials-mock
-                     (fn [username password]
-                       {:messages [""]})]
-             (is (= 1 (count (:messages (call-the-method)))))))
+           (binding [find-user-by-credentials-mock login-with-an-error
+                     contains-any-messages-mock (fn [a] true)]
+             (is (= true (contains-any-messages (call-the-method))))))
 
 
-(it-should-attempt "to not set the cookie if there are errors"
+(it-should "not set the cookie if there are errors"
+           (binding [contains-any-messages-mock  (fn [a] true)
+                     handle-cookie-mock (fn [a] (throw (Exception. "handle-cookie-mock was called.")))]
+             (is (not-thrown? Exception (call-the-method)))))
+
+
+(it-should-attempt "to set the cookie"
                    handle-cookie-mock
-                   #((swap! was-called swap-filler))
-                   false)
+                   #(if (= % test-user-id)
+                      (swap! was-called swap-filler)
+                      nil))
 
-
-;; (it-should-attempt "set the cookie if the are no errors"
-;;                    handle-cookie-mock
-
-
-;;(it-should "set the url if 
-;; (it-should "hash the password"
-;;            (def was-called false)
-;;            (binding [hash-text
-;;                      #(if (= % test-password)
-;;                         (def was-called true)
-;;                         nil)]
-;;              (call-the-method))
-;;            (is (= was-called true)))
-
-
-;; (it-should "attempt to login"
-;;            (was-called?)
-;;            (binding [find-user-by-credentials-mock
-;;                      #(if (and (= %1 test-username ) (= %2 hashed-password))
-;;                         (was-called!)
-;;                         nil)]
-;;              (call-the-method))
-;;            (assert-that @was-called = true))
-
-;; (it-should "return any error messages."
-;;            )
-
-
-
-
-
-
-
-
-
-;; (it-should "contruct the redirect url if there are no errors")
-
-
-
-
-;; (deftest it-should-attempt-to-login-using-the-hashed-password
-;;   (testing "adsfda"
-;;     (is (=  1 2))))
-
-;; (deftest it-should-return-an-error-if-the-login-attempt-fails
-;;   (testing "" ()))
-
-;; (deftest it-should-
-;; ;;(run-tests 'complete.example.when-logging-in-a-user)
-
-
-
+(it-should "return the result after setting the cookie"
+           (is (= messageless-result (call-the-method))))
