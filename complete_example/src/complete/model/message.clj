@@ -33,12 +33,18 @@
    :Error error})
 
 
-(defn create-a-result []
-  {:Messages []
-   :Success true
-   :RedirectUrl ""
-   :Item nil})
+(defn create-a-result
+  ([]
+     (create-a-result nil))
+  ([value]
+     {:Messages []
+      :Success true
+      :RedirectUrl ""
+      :Item value}))
 
+
+(defn retrieve-value [result]
+  (:Item result))
 
 (defn set-result-value [result value]
   (if (result :Success)

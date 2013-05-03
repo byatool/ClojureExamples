@@ -22,4 +22,8 @@
                 (contains? result :Item)
                 (nil? (result :Item)))))
 
-
+(it-should "set the value if given"
+           (let [value-to-add {:value "hi"}]
+             (is (=
+                  value-to-add
+                  (retrieve-value (create-a-result value-to-add))))))

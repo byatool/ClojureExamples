@@ -62,20 +62,22 @@
            (is (= @~(symbol "was-called") ~(nil? called))))))))
 
 
-;;  (mock-flow-method login-user)
-;;  (def ^:dynamic login-user [dsafdsaf]
-;;    "login-user")
-(defmacro mock-chain-method [name]
-  "Used to create mock chain method.  Chain methods are simple in that they take
-  in a value, and return a value.  The method name is used to create a return that
-  is unique to the method itself, but not for each call."
-  `(def ^:dynamic ~name
-     (fn [~(gensym)]
-       ~(str name))))
 
+(defmacro chain-method! [name]
+  (let [name-as-string (str name)]
+    "Used to create mock chain method.  Chain methods are simple in that they take
+    in a value, and return a value.  The method name is used to create a return that
+    is unique to the method itself, but not for each call."
+    `(def ~(with-meta name {:dynamic true}) ;;~(symbol name-as-string)
+       (fn [~(symbol (str (gensym)))]
+         ~(str name-as-string)))))
 
-
+;;(it-was-called!)
+;;(swap! was-called (fn [a] true))
 (defmacro it-was-called! []
+  "This is used to set the was-called variable to return true. A test
+  will check this updated variable to see if this set was ever reached.
+  For use with method injection based testing."
   `(swap! ~(symbol "was-called") (fn [~(symbol "a")] true)))
 
 

@@ -20,23 +20,47 @@
                possible-login-result))))))
 
 
-(defn create-login-information [username password]
-  nil)
+(defn create-login-information
+  ([username password]
+     (create-login-information username password create-a-result))
+  ([username password ?create-a-result]
+     (?create-a-result {:username username :password password})))
+
+
+
+;;
 (defn validate-login [result]
+  ;; is the result an error yet?
+  ;;(?username-exists)  -> is it empty?
+  ;;                       is it short enough?
+  ;;                       
+  ;;(?password-exists)
+  ;;                    -> is it empty?
+  ;;
   nil)
-(defn hash-the-password [result]
+
+(defn hash-the-password [result] ;;hash text
+  ;;?md5
   nil)
+
 (defn login-the-user [result]
+  nil)
+
+(defn set-the-cookie [result]
+  ;;(md5 (Integer/toString user-id) "test")
+  ;;cookies/put!
+  ;;
   nil)
 
 (defn login-a-user
   ([username password]
-     (username password create-login-information validate-login hash-the-password login-the-user))
-  ([username password ?create-login-information ?validate-login ?hash-the-password ?login-the-user]
+     (username password create-login-information validate-login hash-the-password login-the-user set-the-cookie))
+  ([username password ?create-login-information ?validate-login ?hash-the-password ?login-the-user ?set-the-cookie]
      (-> (?create-login-information username password)
          (?validate-login)
          (?hash-the-password)
-         (?login-the-user))))
+         (?login-the-user)
+         (?set-the-cookie))))
 
 
 ;;  (defn login [username password ?validate-login ?hash-password ?login-user]

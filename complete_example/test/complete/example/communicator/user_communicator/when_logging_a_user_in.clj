@@ -8,25 +8,14 @@
 (string! test-username)
 (string! test-password)
 
+(chain-method! hash-the-password-mock)
+(chain-method! login-the-user-mock)
+(chain-method! set-the-cookie-mock)
+(chain-method! validate-login-mock)
 
 (def ^:dynamic create-login-information-mock
   (fn [a b]
     "create-login-information-mock"))
-
-
-(def ^:dynamic hash-the-password-mock
-  (fn [a]
-    "hash-the-password-mock"))
-
-(def ^:dynamic login-the-user-mock
-  (fn [a]
-    "login-the-user-mock"))
-
-
-(def ^:dynamic validate-login-mock
-  (fn [a]
-    "validate-login-mock"))
-
 
 (defn swap-filler [input]
   true)
@@ -39,7 +28,8 @@
    create-login-information-mock
    validate-login-mock
    hash-the-password-mock
-   login-the-user-mock))
+   login-the-user-mock
+   set-the-cookie-mock))
 
 (it-should-attempt "to assemble the need information"
                    create-login-information-mock
@@ -53,13 +43,20 @@
                    validate-login-mock
                    #(if (= % (create-login-information-mock test-username test-password))
                       (it-was-called!)
-                      nil))
+                      nil)) 
 
-(it-should-call "to hash the password"
+(it-should-call "to hash the password with the validation result"
                 hash-the-password-mock
                 validate-login-mock)
 
-(it-should-call "to login the user"
+(it-should-call "to login the user with the hash password result"
                 login-the-user-mock
                 hash-the-password-mock)
+
+(it-should-call "to set the cookie with the login result"
+                set-the-cookie-mock
+                login-the-user-mock)
+
+(it-should "return the final result"
+           (is (= (call-the-method)(set-the-cookie-mock nil))))
 

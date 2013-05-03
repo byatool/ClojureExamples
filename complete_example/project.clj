@@ -11,6 +11,7 @@
    [korma "0.3.0-RC5"]
    [postgresql "9.1-901.jdbc4"]
    [org.clojure/tools.nrepl "0.2.2"]
-   [crypto-random "1.1.0"]]
+   [crypto-random "1.1.0"]
+   [bouncer "0.2.3-beta1"]]
   :plugins [[lein-ring "0.7.1"]]
   :ring {:handler complete.example.routes/app})
