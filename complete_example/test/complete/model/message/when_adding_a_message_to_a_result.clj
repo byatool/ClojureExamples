@@ -20,6 +20,10 @@
            (call-the-method)
            (is (= 0 (count (result :Messages)))))
 
+(it-should "not add an empty mesasge"
+           (binding [error-message (create-a-message-item nil true)]
+             (is (= 0 (count ((call-the-method) :Messages))))))
+
 (it-should "update the success flag if an error is added"
            (is (not ((call-the-method) :Success))))
 

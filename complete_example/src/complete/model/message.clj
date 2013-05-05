@@ -10,7 +10,9 @@
 
 (defn- create-new-message-list-for-the [result a message-item]
   "Used to create a new list based on the result's list, and the new message item."
-  (into (result :Messages) [message-item]))
+  (if (= (message-item :Message) nil)
+    (result :Messages)
+    (into (result :Messages) [message-item])))
 
 (defn- determine-success-based-on-current-success-of-the [result a message-item]
   "Success is based on the current result, and if the message-item is an error."
