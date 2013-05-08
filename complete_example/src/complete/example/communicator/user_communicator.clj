@@ -4,7 +4,8 @@
 (defn hash-text [password] nil)
 (defn find-user-by-credentials [username password] nil)
 (defn handle-cookie [user-id]) ;;?hash-text ?set-cookie
-
+(defn validate-username [result] result)
+(defn validate-password [result] result)
 
 ;;validate the login
 
@@ -27,15 +28,16 @@
      (?create-a-result {:username username :password password})))
 
 
-(defn validate-login [result]
-  ;; is the result an error yet?
-  ;;(?username-exists)  -> is it empty?
-  ;;                       is it short enough?
-  ;;                       
-  ;;(?password-exists)
-  ;;                    -> is it empty?
-  ;;
-  nil)
+;;add error
+(defn validate-login
+  ([result]
+     (validate-login result validate-username validate-password))
+  ([result ?validate-username ?validate-password]
+     (->
+      (?validate-username result)
+      (?validate-password))))
+
+
 
 (defn hash-the-password [result] ;;hash text
   ;;?md5
