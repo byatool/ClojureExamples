@@ -14,11 +14,9 @@
    [compojure.handler :as handler]
    [compojure.response :as response]
    [noir.cookies :as cookies]
-   complete.model.message)
-  (:import
-   [complete.model.message MessageItem MessageResult]))
+   complete.model.message))
 
-
+ 
 
 (defn json-response [data & [status]]
   {:status (or status 200)

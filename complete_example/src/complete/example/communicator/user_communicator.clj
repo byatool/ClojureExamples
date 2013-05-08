@@ -27,8 +27,6 @@
      (?create-a-result {:username username :password password})))
 
 
-
-;;
 (defn validate-login [result]
   ;; is the result an error yet?
   ;;(?username-exists)  -> is it empty?
