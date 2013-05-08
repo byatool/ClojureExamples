@@ -87,6 +87,12 @@
   "This will declare a var, and set it to a random string."
   `(def ~name (crypto.random/base64 10)))
 
+
+(defmacro *string* [name]
+  `(def ~(with-meta name {:dynamic true})
+     (crypto.random/base64 10)))
+    
+    
 ;; (number! user-id
 ;; (def user-id (rand-int 10))
 (defmacro number! [name]

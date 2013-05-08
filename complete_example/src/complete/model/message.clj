@@ -10,7 +10,7 @@
 
 (defn- create-new-message-list-for-the [result a message-item]
   "Used to create a new list based on the result's list, and the new message item."
-  (if (= (message-item :Message) nil)
+  (if (nil? (message-item :Message))
     (result :Messages)
     (into (result :Messages) [message-item])))
 
