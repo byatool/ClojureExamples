@@ -1,13 +1,10 @@
 (ns complete.example.communicator.user-communicator
   (:use complete.model.message
-        complete.validation.user-validation))
+        [complete.validation.user-validation :only (validate-password validate-username)]))
 
 (defn hash-text [password] nil)
 (defn find-user-by-credentials [username password] nil)
 (defn handle-cookie [user-id]) ;;?hash-text ?set-cookie
-(defn validate-password [result] result)
-
-
 
 (defn create-login-information
   ([username password]
