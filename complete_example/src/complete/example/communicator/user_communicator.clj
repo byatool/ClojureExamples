@@ -24,20 +24,12 @@
      (hash-user-id result retrieve-value hash-text set-result-value))
   ([result ?retrieve-value ?hash-text ?set-result-value]
      (if (:Success result)
-       (let [result-value (?retrieve-value result)]
-         (let [hashed (?hash-text result-value)]
-           (?set-result-value result hashed)))
+       (->
+        result
+        (?retrieve-value)
+        (?hash-text)
+        (#(?set-result-value result %)))
        result)))
-
-
-;; (let [result-value (?retrieve-value result)])
-;;hash-user-id
-;; if fail
-;;   result
-;;   (hash-text (:user-id (value result)))
-;; if !result.success
-;;   result
-;;   
 
 
 (defn create-login-information
