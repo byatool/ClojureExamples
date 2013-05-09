@@ -6,6 +6,7 @@
 (defn find-user-by-credentials [username password] nil)
 (defn handle-cookie [user-id]) ;;?hash-text ?set-cookie
 
+
 (defn create-login-information
   ([username password]
      (create-login-information username password create-a-result))
@@ -15,7 +16,6 @@
       (#(?create-a-result %)))))
 
 
-;;add error
 (defn validate-login
   ([result]
      (validate-login result validate-username validate-password))
@@ -26,13 +26,15 @@
       (?validate-password))))
 
 
-
 (defn hash-the-password [result] ;;hash text
   ;;?md5
   nil)
 
+
 (defn login-the-user [result]
+  "This will be used to query the database"
   nil)
+
 
 (defn set-the-cookie [result]
   ;;(md5 (Integer/toString user-id) "test")
