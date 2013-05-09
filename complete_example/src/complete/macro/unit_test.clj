@@ -91,8 +91,16 @@
 (defmacro *string* [name]
   `(def ~(with-meta name {:dynamic true})
      (crypto.random/base64 10)))
-    
-    
+
+;;(defg some-method [a b] nil)
+;;(defn ^:dynamic some-method [a b] nil)
+(defmacro defd [name & rest]
+  "This is used to attach the dynamic tag to a method without
+   haveing to add the dynamic tag manually."
+  `(defn ~(with-meta name {:dynamic true})
+     ~@rest))
+
+
 ;; (number! user-id
 ;; (def user-id (rand-int 10))
 (defmacro number! [name]

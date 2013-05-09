@@ -44,6 +44,13 @@
       :RedirectUrl ""
       :Item value}))
 
+(defn add-an-error-message
+  ([result message]
+     (add-an-error-message result message create-a-message-item add-message))
+  ([result message ?create-a-message-item ?add-message]
+     (let [message-item (?create-a-message-item message true)]
+       (?add-message result message-item))))
+
 
 (defn retrieve-value [result]
   (:Item result))
