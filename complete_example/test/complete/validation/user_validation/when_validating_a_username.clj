@@ -1,4 +1,4 @@
-(ns complete.validation.user-validation.when-validating-a-username
+(ns whcomplete.validation.user-validation.when-validating-a-username
   (:use 
    clojure.test
    complete.macro.unit-test

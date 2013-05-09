@@ -5,7 +5,6 @@
 (defn hash-text [password] nil)
 (defn find-user-by-credentials [username password] nil)
 (defn handle-cookie [user-id]) ;;?hash-text ?set-cookie
-
 (defn validate-password [result] result)
 
 
@@ -14,7 +13,9 @@
   ([username password]
      (create-login-information username password create-a-result))
   ([username password ?create-a-result]
-     (?create-a-result {:username username :password password})))
+     (->
+      {:username username :password password}
+      (#(?create-a-result %)))))
 
 
 ;;add error
@@ -23,7 +24,8 @@
      (validate-login result validate-username validate-password))
   ([result ?validate-username ?validate-password]
      (->
-      (?validate-username result)
+      result
+      (?validate-username)
       (?validate-password))))
 
 
@@ -63,21 +65,6 @@
 ;;      (return-result))
 ;;
 ;;
-;;
-;;  (defn create-login-information [username password]
-;;    (set-value (create-result {:Username username :Password password)))
-;;
-;;  (defn validate-login [information result]
-;;    (if (not (:Success result))
-;;      result
-;;    (->
-;;      (validate-username result)
-;;      (validate-password result)))
-
-;;         (defn validate-username [result]
-;;            (if (not (contains? :username (:Item result)))
-;;              error result
-;;              result
 ;;                   
 ;;
 ;;  (defn hash-password [result ?hash-text]

@@ -10,9 +10,7 @@
 (string! result)
 
 ;; Support Methods
-(def ^:dynamic create-a-result-mock
-  (fn [a]
-    result))
+(defd create-a-result-mock [a] result)
 
 (defn call-the-method []
   (create-login-information test-username test-password create-a-result-mock))
