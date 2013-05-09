@@ -8,18 +8,6 @@
 
 (defn validate-password [result] result)
 
-;;validate the login
-
-;; (defn login-user
-;;   ([username password]
-;;      (login-user username password hash-text find-user-by-credentials contains-any-messages handle-cookie))
-;;   ([username password ?hash-text ?find-user-by-credentials ?contains-any-messages ?handle-cookie]
-;;      (let [hashed-password (?hash-text password)]
-;;        (let [possible-login-result (?find-user-by-credentials username hashed-password)]
-;;          (if (?contains-any-messages possible-login-result)
-;;            possible-login-result
-;;            (do (?handle-cookie (:Item possible-login-result))
-;;                possible-login-result))))))
 
 
 (defn create-login-information

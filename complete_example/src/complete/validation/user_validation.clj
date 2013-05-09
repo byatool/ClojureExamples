@@ -2,19 +2,30 @@
   (:use [complete.validation.text-validation :only (text-is-empty)]
         [complete.model.message :only (retrieve-value add-an-error-message)]))
 
-;; create-a-message-item add-message
+
+;; (defn validate-username
+;;   ([result]
+;;      (validate-username retrieve-value text-is-empty add-an-error-message))
+;;   ([result ?retrieve-value ?text-is-empty ?add-an-error-message]
+;;      (let [username (:username (?retrieve-value result))]
+;;        (let [possible-error-message (?text-is-empty username "Username")]
+;;          (?add-an-error-message result possible-error-message)))))
+
+
+
+
+
+
+
 (defn validate-username
   ([result]
      (validate-username retrieve-value text-is-empty add-an-error-message))
   ([result ?retrieve-value ?text-is-empty ?add-an-error-message]
-     (let [username (:username (?retrieve-value result))]
-       (?add-an-error-message result (?text-is-empty username "Username")))))
+     (->
+      (#(:username (?retrieve-value result)))
+      (#(?text-is-empty % "Username"))
+      (#(?add-an-error-message result %)))))
 
-;;(result text-is-empty add-message)
-;;(:username (:value result)) "username"
-;;user name
-;;text-is-empty
-;;passwaord
 
 
 
