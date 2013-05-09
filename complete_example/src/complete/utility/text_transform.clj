@@ -1,6 +1,5 @@
 (ns complete.utility.text-transform
   (:use
-
    [noir.util.crypt :only (md5)]))
 
 (def seed "the-world-wonders")

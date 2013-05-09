@@ -1,10 +1,43 @@
 (ns complete.example.communicator.user-communicator
   (:use complete.model.message
-        [complete.validation.user-validation :only (validate-password validate-username)]))
+        [complete.validation.user-validation :only (validate-password validate-username)]
+        [complete.utility.text-transform :only (hash-text)]
+        [noir.cookies :only (put!)]))
 
-(defn hash-text [password] nil)
-(defn find-user-by-credentials [username password] nil)
-(defn handle-cookie [user-id]) ;;?hash-text ?set-cookie
+
+(defn find-user-by-credentials [username password]
+  ;;will have to return a reesult with :user-id in the value
+  nil)
+
+
+;; (defn handle-cookie
+;;   ([result]
+;;      (handle-cookie result hash-user-id put!))
+;;   ([result ?hash-user-id ?cookies-put]
+;;      (-> result
+;;          (?hash-user-id %)
+;;          (#(?cookies-put :user-id %)))))
+
+
+(defn hash-user-id
+  ([result]
+     (hash-user-id result retrieve-value hash-text set-result-value))
+  ([result ?retrieve-value ?hash-text ?set-result-value]
+     (if (:Success result)
+       (let [result-value (?retrieve-value result)]
+         (let [hashed (?hash-text result-value)]
+           (?set-result-value result hashed)))
+       result)))
+
+
+;; (let [result-value (?retrieve-value result)])
+;;hash-user-id
+;; if fail
+;;   result
+;;   (hash-text (:user-id (value result)))
+;; if !result.success
+;;   result
+;;   
 
 
 (defn create-login-information
@@ -51,23 +84,3 @@
          (?hash-the-password)
          (?login-the-user)
          (?set-the-cookie))))
-
-
-;;  (defn login [username password ?validate-login ?hash-password ?login-user]
-;;      (create-login-information username password)
-;;      (validate-login)
-;;      (hash-password)
-;;      (login-user)
-;;      (set-cookie
-;;         (hash-word)
-;;         (set!))
-;;      (return-result))
-;;
-;;
-;;                   
-;;
-;;  (defn hash-password [result ?hash-text]
-;;    (if (not (:Success result))
-;;      result
-;;      (->
-;;        (hash-text (:Item result :Password))
