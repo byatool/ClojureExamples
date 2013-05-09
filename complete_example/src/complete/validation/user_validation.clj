@@ -22,7 +22,8 @@
      (validate-username retrieve-value text-is-empty add-an-error-message))
   ([result ?retrieve-value ?text-is-empty ?add-an-error-message]
      (->
-      (#(:username (?retrieve-value result)))
+      (?retrieve-value result)
+      (#(:username %))
       (#(?text-is-empty % "Username"))
       (#(?add-an-error-message result %)))))
 
