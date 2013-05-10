@@ -10,15 +10,6 @@
   nil)
 
 
-;; (defn handle-cookie
-;;   ([result]
-;;      (handle-cookie result hash-user-id put!))
-;;   ([result ?hash-user-id ?cookies-put]
-;;      (-> result
-;;          (?hash-user-id %)
-;;          (#(?cookies-put :user-id %)))))
-
-
 (defn hash-user-id
   ([result]
      (hash-user-id result retrieve-value hash-text set-result-value))
@@ -30,6 +21,16 @@
         (?hash-text)
         (#(?set-result-value result %)))
        result)))
+
+
+(defn handle-cookie
+  ([result]
+     (handle-cookie result retrieve-value hash-user-id put!))
+  ([result ?retrieve-value ?hash-user-id ?cookies-put]
+     (-> result
+         (?retrieve-value)
+         (?hash-user-id)
+         (#(?cookies-put :user-id %)))))
 
 
 (defn create-login-information

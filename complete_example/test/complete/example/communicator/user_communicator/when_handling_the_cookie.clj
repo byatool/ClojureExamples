@@ -9,11 +9,18 @@
 (string! hashed)
 (def result (create-a-result {:user-id text}))
 
-(defd hash-text-mock [a] hashed)
 (defd cookies-put-mock [a b] nil)
+(defd hash-text-mock [a] hashed)
+(defd retrieve-value-mock [a] text)
 
 (defn call-the-method []
-  (handle-cookie result hash-text-mock cookies-put-mock))
+  (handle-cookie result retrieve-value-mock hash-text-mock cookies-put-mock))
+
+(it-should-attempt "to retrieve the value"
+                   retrieve-value-mock
+                   #(if (= % result)
+                      (it-was-called!)
+                      nil))
 
 (it-should-attempt "to hash the text"
                    hash-text-mock
