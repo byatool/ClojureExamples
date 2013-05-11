@@ -2,7 +2,8 @@
   (:use complete.model.message
         [complete.validation.user-validation :only (validate-password validate-username)]
         [complete.utility.text-transform :only (hash-text)]
-        [noir.cookies :only (put!)]))
+        [noir.cookies :only (put!)]
+        [complete.macro.site-macro :only (if-success)]))
 
 
 (defn find-user-by-credentials [username password]
@@ -14,13 +15,11 @@
   ([result]
      (hash-user-id result retrieve-value hash-text set-result-value))
   ([result ?retrieve-value ?hash-text ?set-result-value]
-     (if (:Success result)
-       (->
-        result
-        (?retrieve-value)
-        (?hash-text)
-        (#(?set-result-value result %)))
-       result)))
+     (if-success
+      result
+      (?retrieve-value)
+      (?hash-text)
+      (#(?set-result-value result %)))))
 
 
 (defn handle-cookie
@@ -52,9 +51,17 @@
       (?validate-password))))
 
 
-(defn hash-the-password [result] ;;hash text
-  ;;?md5
-  nil)
+(defn hash-the-password
+  ([result]
+     (hash-the-password result retrieve-value hash-text assoc set-result-value))
+  ([result ?retrieve-value ?hash-text ?assoc ?set-result-value]
+     (if-success
+      result
+      (?retrieve-value)
+      (:password)
+      (?hash-text)
+      (#(?assoc % :password (?retrieve-value result)))
+      (#(?set-result-value result %)))))
 
 
 (defn login-the-user [result]
@@ -62,15 +69,9 @@
   nil)
 
 
-(defn set-the-cookie [result]
-  ;;(md5 (Integer/toString user-id) "test")
-  ;;cookies/put!
-  ;;
-  nil)
-
 (defn login-a-user
   ([username password]
-     (username password create-login-information validate-login hash-the-password login-the-user set-the-cookie))
+     (username password create-login-information validate-login hash-the-password login-the-user handle-cookie))
   ([username password ?create-login-information ?validate-login ?hash-the-password ?login-the-user ?set-the-cookie]
      (-> (?create-login-information username password)
          (?validate-login)
