@@ -5,12 +5,6 @@
         [noir.cookies :only (put!)]
         [complete.macro.site-macro :only (if-success)]))
 
-
-(defn find-user-by-credentials [username password]
-  ;;will have to return a reesult with :user-id in the value
-  nil)
-
-
 (defn hash-user-id
   ([result]
      (hash-user-id result retrieve-value hash-text set-result-value))
