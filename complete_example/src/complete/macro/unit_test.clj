@@ -36,6 +36,12 @@
        (do ~@rest ))))
 
 
+(defmacro it-should-be [test-name test-it check]
+  `(deftest ~(create-symbol-from-string test-name)
+     (binding [~test-it ~check]
+       (is (= true (~(symbol "call-the-method")))))))
+
+
 (defmacro it-should-attempt [& rest]
   (let [[description method-name check called] rest]
     `(deftest ~(create-symbol-from-string description)

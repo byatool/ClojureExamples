@@ -21,6 +21,7 @@
            (binding [result (add-an-error-message result "hihi")]
              (is (= result (call-the-method)))))
 
+
 (it-should-attempt "to get the value from the result"
                    retrieve-value-mock
                    #(if (= % result)
@@ -32,6 +33,15 @@
                    #(if (= % user-id)
                       (it-was-called!)
                       nil))
+
+
+(it-should-attempt "to create a string from the id"
+                   to-string-mock
+                   #(if (= % userid)
+                      (it-was-called!)
+                      nil))
+
+
 (it-should-attempt "to set the value"
                    set-result-value-mock
                    #(if (and
