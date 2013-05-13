@@ -39,9 +39,9 @@
                       nil))
 
 
-(it-should-try "to hash the text"
+(it-should-be "trying to hash the text"
                    hash-text-mock
-                   (= % password))
+                   #(if (= % password)))
 
 (it-should-attempt "to update the password on the result"
                    assoc-mock

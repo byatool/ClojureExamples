@@ -11,6 +11,17 @@
   (symbol (join "-" (split text #" "))))
 
 
+(defn augment-the-mock-function [lambda-expression]
+  (list
+   (nth lambda-expression 0)
+   (nth lambda-expression 1)
+   (list
+    'if (nth lambda-expression 2)
+    '(swap! ~(symbol "was-called")
+            (fn [~(symbol "a")] true))
+    false)))
+
+
 ;;  clojure.test amendments
 
 ;; (is (not-thrown? c expr))
@@ -38,9 +49,21 @@
 
 (defmacro it-should-be [test-name test-it check]
   `(deftest ~(create-symbol-from-string test-name)
-     (binding [~test-it ~check]
-       (is (= true (~(symbol "call-the-method")))))))
-
+     (testing ~(apply str "it should attempt " test-name)
+       (do
+         (def  ~(symbol "was-called") (atom false))
+         (binding [~(symbol (str test-it))
+                   ~(list
+                     (nth check 0)
+                     (nth check 1)
+                     (list
+                      'if
+                      (nth check 2)
+                      `(swap! ~(symbol "was-called") (fn [~(symbol "a")] true))
+                      nil))]
+           (~(symbol "call-the-method"))
+           (is (= @~(symbol "was-called") true)))))))
+ 
 
 (defmacro it-should-attempt [& rest]
   (let [[description method-name check called] rest]

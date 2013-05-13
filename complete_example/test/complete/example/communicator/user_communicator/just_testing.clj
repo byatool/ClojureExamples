@@ -12,7 +12,8 @@
   a)
 
 (defn real-method [a ?do-something]
-  (?do-something a))
+  (?do-something a)
+  false)
 
 (defn call-the-method []
   (real-method to-go do-something-mock))
