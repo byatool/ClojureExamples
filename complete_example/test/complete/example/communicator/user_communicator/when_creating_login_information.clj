@@ -17,11 +17,9 @@
 
 
 ;; Test Methods
-(it-should-attempt "to create a result"
+(it-should-try "to create a result"
                    create-a-result-mock
-                   #(if (= %1 {:username test-username :password test-password}) 
-                      (it-was-called!)
-                      nil))
+                   #(= %1 {:username test-username :password test-password}))
 
 
 (it-should "return a result"

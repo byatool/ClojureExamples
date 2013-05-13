@@ -11,15 +11,16 @@
   (symbol (join "-" (split text #" "))))
 
 
-(defn augment-the-mock-function [lambda-expression]
-  (list
-   (nth lambda-expression 0)
-   (nth lambda-expression 1)
-   (list
-    'if (nth lambda-expression 2)
-    '(swap! ~(symbol "was-called")
-            (fn [~(symbol "a")] true))
-    false)))
+;; (defn augment-the-mock-function [lambda-expression]
+  
+;;   (list
+;;    (nth lambda-expression 0)
+;;    (nth lambda-expression 1)
+;;    (list
+;;     'if (nth lambda-expression 2)
+;;     '(swap! ~(symbol "was-called")
+;;             (fn [~(symbol "a")] true))
+;;     false)))
 
 
 ;;  clojure.test amendments
@@ -47,7 +48,13 @@
        (do ~@rest ))))
 
 
-(defmacro it-should-be [test-name test-it check]
+
+;; (it-should-try "to create a result"
+;;                create-a-result-mock
+;;                #(= %1 {:username test-username :password test-password}))
+(defmacro it-should-try [test-name test-it check]
+  "This is used to shadow the method by injecting an if clause
+  which will set a variable to true if the 'check' returns true."
   `(deftest ~(create-symbol-from-string test-name)
      (testing ~(apply str "it should attempt " test-name)
        (do
@@ -63,7 +70,7 @@
                       nil))]
            (~(symbol "call-the-method"))
            (is (= @~(symbol "was-called") true)))))))
- 
+
 
 (defmacro it-should-attempt [& rest]
   (let [[description method-name check called] rest]

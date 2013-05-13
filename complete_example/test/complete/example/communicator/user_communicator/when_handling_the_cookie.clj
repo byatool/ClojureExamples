@@ -16,22 +16,19 @@
 (defn call-the-method []
   (handle-cookie result retrieve-value-mock hash-text-mock cookies-put-mock))
 
-(it-should-attempt "to retrieve the value"
-                   retrieve-value-mock
-                   #(if (= % result)
-                      (it-was-called!)
-                      nil))
+(it-should-try "to retrieve the value"
+               retrieve-value-mock
+               #(= % result))
 
-(it-should-attempt "to hash the text"
-                   hash-text-mock
-                   #(if (= % text)
-                      (it-was-called!)
-                      nil))
+(it-should-try "to hash the text"
+               hash-text-mock
+               #(= % text))
 
-(it-should-attempt "to put the hashed text to a cookie"
-                   cookies-put-mock
-                   #(if (and
-                         (= %1 :user-id)
-                         (= %2 hashed)) 
-                      (it-was-called!)
-                      nil))
+(it-should-try "to put the hashed text to a cookie"
+               cookies-put-mock
+               #(and
+                 (= %1 :user-id)
+                 (= %2 hashed)))
+                   ;; #(if
+                   ;;    (it-was-called!)
+                   ;;    nil))
