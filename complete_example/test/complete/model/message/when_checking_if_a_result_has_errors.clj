@@ -2,7 +2,10 @@
   (:use
    clojure.test
    complete.macro.unit-test
-   complete.model.message))
+   [complete.model.message :only (add-message contains-any-messages create-a-message-item create-a-result)]))
+
+
+;; Test Functions
 
 (it-should "return false if there are no messages"
            (is (= false (contains-any-messages (create-a-result)))))

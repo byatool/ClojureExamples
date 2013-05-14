@@ -1,9 +1,10 @@
-(ns complete.example.communicator.user-communicator
-  (:use complete.model.message
-        [complete.validation.user-validation :only (validate-password validate-username)]
-        [complete.utility.text-transform :only (hash-text)]
-        [noir.cookies :only (put!)]
-        [complete.macro.site-macro :only (if-success)]))
+(ns complete.example.communicator.login-communicator
+  (:use
+   [noir.cookies :only (put!)]
+   [complete.model.message :only (create-a-result retrieve-value set-result-value)]
+   [complete.validation.user-validation :only (validate-password validate-username)]
+   [complete.utility.text-transform :only (hash-text)]
+   [complete.macro.site-macro :only (if-success)]))
 
 
 (defn hash-user-id
@@ -44,6 +45,8 @@
 
 
 (defn validate-login
+  "This is used to validate the login information attached to the
+  result."
   ([result]
      (validate-login result validate-username validate-password))
   ([result ?validate-username ?validate-password]
@@ -54,6 +57,8 @@
 
 
 (defn hash-the-password
+  "This is used to take the entered password, then hash it for comparing it to the
+  stored/hashed password."
   ([result]
      (hash-the-password result retrieve-value hash-text assoc set-result-value))
   ([result ?retrieve-value ?hash-text ?assoc ?set-result-value]

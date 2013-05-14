@@ -1,25 +1,27 @@
-(ns complete.example.communicator.user-communicator.when-logging-a-user-in
+(ns complete.example.communicator.login-communicator.when-logging-a-user-in
   (:use
    clojure.test
    complete.macro.unit-test
-   complete.example.communicator.user-communicator
+   [complete.example.communicator.login-communicator :only (login-a-user)]
    complete.model.message))
+
+
+;; Fields
 
 (string! test-username)
 (string! test-password)
+
+
+;; Mock Functions
 
 (chain-method! hash-the-password-mock)
 (chain-method! login-the-user-mock)
 (chain-method! set-the-cookie-mock)
 (chain-method! validate-login-mock)
+(defd create-login-information-mock [a b] "create-login-information-mock")
 
-(def ^:dynamic create-login-information-mock
-  (fn [a b]
-    "create-login-information-mock"))
 
-(defn swap-filler [input]
-  true)
-
+;; Support Functions
 
 (defn call-the-method []
   (login-a-user
@@ -31,19 +33,18 @@
    login-the-user-mock
    set-the-cookie-mock))
 
-(it-should-attempt "to assemble the need information"
-                   create-login-information-mock
-                   #(if (and
-                         (= %1 test-username )
-                         (= %2 test-password))
-                      (it-was-called!)
-                      nil))
 
-(it-should-attempt "to validate the created login information"
-                   validate-login-mock
-                   #(if (= % (create-login-information-mock test-username test-password))
-                      (it-was-called!)
-                      nil)) 
+;; Test Functions
+
+(it-should-try "to assemble the need information"
+               create-login-information-mock
+               #(and
+                 (= %1 test-username )
+                 (= %2 test-password)))
+
+(it-should-try "to validate the created login information"
+               validate-login-mock
+               #(= % (create-login-information-mock test-username test-password))) 
 
 (it-should-call "to hash the password with the validation result"
                 hash-the-password-mock

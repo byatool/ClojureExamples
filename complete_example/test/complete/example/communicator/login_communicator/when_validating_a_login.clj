@@ -1,27 +1,35 @@
-(ns complete.example.communicator.user-communicator.when-validating-a-login
+(ns complete.example.communicator.login-communicator.when-validating-a-login
   (:use
    clojure.test
    complete.macro.unit-test
-   complete.example.communicator.user-communicator
+   [complete.example.communicator.login-communicator :only (create-login-information validate-login)]
    complete.validation.text-validation))
+
+;; Fields
 
 (string! user-name)
 (string! password)
 
+(def login-information (create-login-information user-name password))
+
+
+;; Mock Functions
+
 (chain-method! validate-username-mock)
 (chain-method! validate-password-mock)
 
-(def login-information (create-login-information user-name password))
+
+;; Support Functions
 
 (defn call-the-method []
   (validate-login login-information validate-username-mock validate-password-mock))
 
 
-(it-should-attempt "to validate the user name"
+;; Test Functions
+
+(it-should-try "to validate the user name"
                    validate-username-mock
-                   #(if (= % login-information)
-                      (it-was-called!)
-                      nil))
+                   #(= % login-information))
 
 (it-should-call "to validate the password"
                 validate-password-mock

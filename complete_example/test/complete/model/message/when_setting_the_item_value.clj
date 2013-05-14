@@ -2,20 +2,22 @@
   (:use
    clojure.test
    complete.macro.unit-test
-   complete.model.message))
+   [complete.model.message :only (add-message create-a-message-item create-a-result set-result-value)]))
+
 
 ;; Fields
 
 (string! item-value)
 (def ^:dynamic result (create-a-result))
 
-;; Support Methods
+
+;; Support Functions
 
 (defn call-the-method []
   (set-result-value result item-value))
 
 
-;; Test Methods
+;; Test Functions
 
 (it-should "set the result value"
            (let [changed-result (call-the-method)]

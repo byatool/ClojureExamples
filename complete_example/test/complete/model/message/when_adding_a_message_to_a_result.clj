@@ -2,16 +2,23 @@
   (:use
    clojure.test
    complete.macro.unit-test
-   complete.model.message))
+   [complete.model.message :only (add-message create-a-result create-a-message-item)]))
+
+
+;; Fields
 
 (string! new-message)
 (def ^:dynamic error-message (create-a-message-item new-message true))
-
-
 (def result (create-a-result))
+
+
+;; Support Functions
 
 (defn call-the-method []
   (add-message result error-message))
+
+
+;; Test Functions
 
 (it-should "add the new message to the result"
            (is (= 1 (count ((call-the-method) :Messages)))))
