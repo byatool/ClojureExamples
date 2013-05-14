@@ -1,23 +1,23 @@
-(ns complete.example.communicator.user-communicator.just-testing
-  (:use
-   clojure.test
-   complete.macro.unit-test))
+;; (ns complete.example.communicator.user-communicator.just-testing
+;;   (:use
+;;    clojure.test
+;;    complete.macro.unit-test))
 
 
 
 
-(string! to-go)
+;; (string! to-go)
 
-(defd do-something-mock [a]
-  a)
+;; (defd do-something-mock [a]
+;;   a)
 
-(defn real-method [a ?do-something]
-  (?do-something a)
-  false)
+;; (defn real-method [a ?do-something]
+;;   (?do-something a)
+;;   false)
 
-(defn call-the-method []
-  (real-method to-go do-something-mock))
+;; (defn call-the-method []
+;;   (real-method to-go do-something-mock))
 
-(it-should-be "calling things correctly"
-               do-something-mock
-               #(= % to-go))
+;; (it-should-be "calling things correctly"
+;;                do-something-mock
+;;                #(= % to-go))

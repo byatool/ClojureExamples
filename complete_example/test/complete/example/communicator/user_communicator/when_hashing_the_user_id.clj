@@ -13,9 +13,9 @@
 (defd hash-text-mock [a] hashed)
 (defd retrieve-value-mock [a] user-id)
 (defd set-result-value-mock [a b] final-result)
-
+(defd to-string-mock [a] user-id)
 (defn call-the-method []
-  (hash-user-id result retrieve-value-mock hash-text-mock set-result-value-mock))
+  (hash-user-id result retrieve-value-mock to-string-mock hash-text-mock set-result-value-mock))
 
 (it-should "return the result if it was not successful"
            (binding [result (add-an-error-message result "hihi")]
@@ -28,19 +28,15 @@
                       (it-was-called!)
                       nil))
 
-(it-should-attempt "to hash the text"
-                   hash-text-mock
-                   #(if (= % user-id)
-                      (it-was-called!)
-                      nil))
 
-
-(it-should-attempt "to create a string from the id"
+(it-should-call "to create a string from the id"
                    to-string-mock
-                   #(if (= % userid)
-                      (it-was-called!)
-                      nil))
+                   retrieve-value-mock)
 
+(it-should-call "to hash the text"
+                   hash-text-mock
+                   to-string-mock)
+                   
 
 (it-should-attempt "to set the value"
                    set-result-value-mock
