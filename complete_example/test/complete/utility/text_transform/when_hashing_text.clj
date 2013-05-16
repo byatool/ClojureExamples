@@ -13,13 +13,11 @@
 (defn call-the-method []
   (hash-text username md5-mock))
 
-(it-should-attempt "to hash the text"
+(it-should-try "to hash the text"
                    md5-mock
-                   #(if (and
-                         (= %1 username)
-                         (= %2 seed))
-                      (it-was-called!)
-                      nil))
+                   #(and
+                     (= %1 username)
+                     (= %2 seed)))
 
 (it-should "return the result"
            (is (= result (call-the-method))))

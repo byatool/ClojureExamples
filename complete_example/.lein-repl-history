@@ -46,3 +46,8 @@ lein help
 (use '(complete.lobos.helper))
 (use '(complete.lobos.migrations))
 (migrate)
+(use '(lobos connectivity core schema))
+(use '(complete.lobos config))
+(use '(complete.lobos helper))
+(use '(lobos.migrations))
+(migrate)

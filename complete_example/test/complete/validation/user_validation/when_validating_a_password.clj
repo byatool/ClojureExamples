@@ -5,6 +5,7 @@
    [complete.validation.user-validation :only (validate-password)]
    [complete.example.communicator.login-communicator :only (create-login-information)]))
 
+
 ;; Fields
 
 (string! username)

@@ -11,18 +11,6 @@
   (symbol (join "-" (split text #" "))))
 
 
-;; (defn augment-the-mock-function [lambda-expression]
-  
-;;   (list
-;;    (nth lambda-expression 0)
-;;    (nth lambda-expression 1)
-;;    (list
-;;     'if (nth lambda-expression 2)
-;;     '(swap! ~(symbol "was-called")
-;;             (fn [~(symbol "a")] true))
-;;     false)))
-
-
 ;;  clojure.test amendments
 
 ;; (is (not-thrown? c expr))
@@ -72,17 +60,6 @@
            (is (= @~(symbol "was-called") true)))))))
 
 
-(defmacro it-should-attempt [& rest]
-  (let [[description method-name check called] rest]
-    `(deftest ~(create-symbol-from-string description)
-       (testing ~(apply str "it should attempt " description)
-         (do
-           (def  ~(symbol "was-called") (atom false))
-           (binding [~(symbol (str method-name))
-                     ~check]
-             (~(symbol "call-the-method")))
-           (is (= @~(symbol "was-called") ~(nil? called))))))))
-
 
 (defmacro it-should-call [& rest]
   (let [[description method-name preceding-method called] rest]
@@ -107,14 +84,6 @@
     `(def ~(with-meta name {:dynamic true}) ;;~(symbol name-as-string)
        (fn [~(symbol (str (gensym)))]
          ~(str name-as-string)))))
-
-;;(it-was-called!)
-;;(swap! was-called (fn [a] true))
-(defmacro it-was-called! []
-  "This is used to set the was-called variable to return true. A test
-  will check this updated variable to see if this set was ever reached.
-  For use with method injection based testing."
-  `(swap! ~(symbol "was-called") (fn [~(symbol "a")] true)))
 
 
 ;; (string! username)

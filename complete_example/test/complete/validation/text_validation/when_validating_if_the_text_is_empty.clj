@@ -3,13 +3,22 @@
    [clojure.contrib.string :only (substring?)]
    clojure.test
    complete.macro.unit-test
-   complete.validation.text-validation))
+   [complete.validation.text-validation :only (text-is-empty)]))
+
+
+;; Fields
 
 (*string* to-check)
 (string! control-name)
 
+
+;; Support Functions
+
 (defn call-the-method []
   (text-is-empty to-check control-name))
+
+
+;; Test Functions
 
 (it-should "return nil if there is text"
            (is (nil? (call-the-method))))

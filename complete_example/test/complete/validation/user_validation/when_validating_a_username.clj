@@ -5,13 +5,14 @@
    [complete.validation.user-validation :only (validate-username)]
    [complete.example.communicator.login-communicator :only (create-login-information)]))
 
+
 ;; Fields
 
 (string! error-message)
 (string! password)
 (string! username)
-
 (def result (create-login-information username password))
+
 
 ;; Mock Functions
 
@@ -27,7 +28,6 @@
 
 
 ;; Test Functions
-
 
 (it-should-try "to retrieve the username"
                    retrieve-value-mock
