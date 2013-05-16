@@ -1,4 +1,4 @@
-(ns complete.lobos.config
+(ns lobos.config
   (:use lobos.connectivity))
 
 (def db

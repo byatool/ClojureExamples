@@ -1,4 +1,4 @@
-(ns complete.lobos.helper
+(ns lobos.helper
   (:refer-clojure :exclude [bigint boolean char double float time])
   (:use (lobos schema)))
 

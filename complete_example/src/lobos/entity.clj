@@ -1,11 +1,10 @@
-(ns complete.lobos.entity
+(ns lobos.entity
   (:use         
    [lobos.config :as config]
    (korma core db)))
 
 
 (defdb test-use config/db)
-
 
 (defentity users
   (pk :id)
