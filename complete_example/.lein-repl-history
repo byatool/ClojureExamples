@@ -51,3 +51,5 @@ lein help
 (use '(complete.lobos helper))
 (use '(lobos.migrations))
 (migrate)
+(run-tests 'complete.model.message)
+(run-test 'complete.model.message)
