@@ -1,11 +1,11 @@
 (ns lobos.migrations
   (:refer-clojure :exclude [alter drop bigint boolean char double float time])
   (:use (lobos [migration :only [defmigration]] core schema)
-        (complete.lobos config helper)))
+        (lobos config helper)))
 
 ;;(use '(lobos connectivity core schema))
-;;(use '(complete.lobos config))
-;;(use '(complete.lobos helper))
+;;(use '(lobos config))
+;;(use '(lobos helper))
 ;;(use '(lobos.migrations))
 ;;(migrate)
 

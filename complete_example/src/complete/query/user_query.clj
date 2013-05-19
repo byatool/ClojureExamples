@@ -11,4 +11,4 @@
                 (fields :id))]
     (if (empty? query-result)
       (add-an-error-message (create-a-result) "User doesn't exist.")
-      (create-a-result (first query-result)))))
+      (create-a-result (:id (first query-result))))))

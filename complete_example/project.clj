@@ -12,6 +12,7 @@
    [postgresql "9.1-901.jdbc4"]
    [lobos "1.0.0-SNAPSHOT"]
    [crypto-random "1.1.0"]
-   [bouncer "0.2.3-beta1"]]
+   [bouncer "0.2.3-beta1"]
+   [ritz/ritz-debugger "0.7.0"]]
   :plugins [[lein-ring "0.7.1"]]
   :ring {:handler complete.example.routes/app})

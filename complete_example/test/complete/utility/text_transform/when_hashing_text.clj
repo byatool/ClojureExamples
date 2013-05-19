@@ -20,8 +20,10 @@
                      (= %2 seed)))
 
 (it-should "return the result"
-           (is (= result (call-the-method))))
+           (is (= 1 (call-the-method))))
 
 
 
-           
+
+ (with-test-out
+        (run-tests))
